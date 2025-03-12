@@ -3,3 +3,5 @@ tech/source/Common/obj/
 tech/source/Test/bin/
 tech/source/Test/obj/
 tech/source/Test/TestResults/
+tech/source/Test/Concepts/NUnitTestItem1.cs
+/.vscode/
