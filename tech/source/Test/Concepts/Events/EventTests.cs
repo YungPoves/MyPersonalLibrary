@@ -6,7 +6,8 @@ namespace Test.Concepts
     [TestInitialize]
     public void Setup()
     {
-      OddNumberFound += PrintOdd;
+      OnEvenNumberFound += PrintEven;
+      OnOddNumberFound += PrintOdd;
     }
 
     [TestMethod]
@@ -17,35 +18,44 @@ namespace Test.Concepts
         switch (i % 2)
         {
           case 0:
-            // evenNumberFound?.Invoke();
-            evenNumberFound2?.Invoke(i);
+            OnEvenNumberFound?.Invoke(this, i);
             break;
 
           default:
-            OddNumberFound?.Invoke(this, i);
+            OnOddNumberFound?.Invoke(this, i);
             break;
         }
       }
       Assert.IsTrue(1 == 1);
     }
 
-    private const int Begin = 1;
-    private const int End = 100;
+    [TestMethod]
+    public void TestWithOneEventHandler()
+    {
+      for (int i = Begin; i <= End; i++)
+      {
+        switch (i % 2)
+        {
+          case 0:
+            OnNumberIncrement = PrintEven;
+            OnNumberIncrement?.Invoke(this, i);
+            break;
 
-    //Delegates
-    public delegate void EvenNumberFound();
-    private delegate void EvenNumberFound2(int x);
-    private readonly EvenNumberFound evenNumberFound = PrintEven;
-    private readonly EvenNumberFound2 evenNumberFound2 = PrintEven;
+          default:
+            OnNumberIncrement = PrintOdd;
+            OnNumberIncrement?.Invoke(this, i);
+            break;
+        }
+      }
+      Assert.IsTrue(1 == 1);
+    }
 
     //Events
-    private event EventHandler<int>? OddNumberFound;
+    private event EventHandler<int>? OnEvenNumberFound;
+    private event EventHandler<int>? OnOddNumberFound;
+    private event EventHandler<int>? OnNumberIncrement;
 
-    private static void PrintEven()
-    {
-      Console.WriteLine("Even!");
-    }
-    private static void PrintEven(int num)
+    private void PrintEven(object? sender, int num)
     {
       Console.WriteLine($"{num}: Even!");
     }
@@ -53,5 +63,8 @@ namespace Test.Concepts
     {
       Console.WriteLine($"{num}: Odd!");
     }
+
+    private const int Begin = 1;
+    private const int End = 100;
   }
 }
