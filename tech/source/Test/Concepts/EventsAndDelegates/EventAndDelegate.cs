@@ -6,6 +6,8 @@ namespace Test.Concepts.EventsAndDelegates
     [TestInitialize]
     public void Setup()
     {
+      OnEvenNumberEvent += PrintOnEven;
+      OnOddNumberEvent += PrintOnOdd;
     }
 
     [TestMethod]
@@ -18,12 +20,12 @@ namespace Test.Concepts.EventsAndDelegates
           case (0):
             onNumberIncrementDelegate = PrintOnEven;
             onNumberIncrementDelegate?.Invoke(i);
-          break;
+            break;
 
           default:
             onNumberIncrementDelegate = PrintOnOdd;
             onNumberIncrementDelegate?.Invoke(i);
-          break;
+            break;
         }
       }
     }
@@ -35,27 +37,27 @@ namespace Test.Concepts.EventsAndDelegates
         switch (i % 2)
         {
           case (0):
-            OnNumberIncrementEvent = PrintOnEven;
-            OnNumberIncrementEvent?.Invoke(this, i);
-          break;
+            OnEvenNumberEvent?.Invoke(this, i);
+            break;
 
           default:
-            OnNumberIncrementEvent = PrintOnOdd;
-            OnNumberIncrementEvent?.Invoke(this, i);
-          break;
+            OnOddNumberEvent?.Invoke(this, i);
+            break;
         }
       }
     }
-    
+
     #region Delegates
     private delegate void OnNumberIncrementDelegate(int num);
     private OnNumberIncrementDelegate? onNumberIncrementDelegate;
     #endregion
 
     #region Events
-    private event EventHandler<int>? OnNumberIncrementEvent;
+    private event EventHandler<int>? OnEvenNumberEvent;
+    private event EventHandler<int>? OnOddNumberEvent;
     #endregion
 
+    // handlers
     #region Methods
     private void PrintOnEven(int num)
     {
