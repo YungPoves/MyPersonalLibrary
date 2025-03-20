@@ -18,14 +18,15 @@ namespace Test.Concepts.Actions
     {      
       myTestAction = SayHello;
 
-      myTestAction();
+      myTestAction?.Invoke("Steve");
+      myTestAction?.Invoke("Poveroni");
     }
 
-    private Action? myTestAction;
+    private Action<string>? myTestAction;
 
-    private void SayHello()
+    private void SayHello(string name)
     {
-      Console.WriteLine("Hello!");
+      Console.WriteLine($"Hello {name}!");
     }
   }
 }
