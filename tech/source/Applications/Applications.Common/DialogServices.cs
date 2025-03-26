@@ -4,19 +4,24 @@ namespace Applications.Common
 {
   public class DialogServices
   {
-    public DialogResult GetDialogResult()
+    public DialogResult GetConfirmation(string message)
     {
-      return DialogResult.OK;
+      return MessageBox.Show(message, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
     }
 
-    public DialogResult ShowInformation()
+    public void ShowException(string message, Exception exc)
     {
-      return MessageBox.Show("", "Information: ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      MessageBox.Show($"{message}, {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
     }
 
-    public DialogResult ShowWarning()
+    public void ShowInformation(string message)
     {
-      return MessageBox.Show("Warning: ", "Warning", MessageBoxButtons.OK);
+      MessageBox.Show(message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
+    public void ShowError(string message)
+    {
+      MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
     }
   }
 }
