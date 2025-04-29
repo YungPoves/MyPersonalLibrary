@@ -31,7 +31,7 @@ public class EventDispatchers
     for (int i = Start; i <= End; ++i)
     {
       if (i == End)
-        EventDispatcher(i, PrintMaximum);
+        EventDispatcher(i, OnMaximum);
       else Console.WriteLine(i);
     }
   }
