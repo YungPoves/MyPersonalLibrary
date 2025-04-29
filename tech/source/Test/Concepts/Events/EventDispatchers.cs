@@ -1,7 +1,7 @@
 namespace Test.Concepts;
 
 [TestClass]
-public class MoreEventTests
+public class EventDispatchers
 {
   [TestMethod]
   public void TestOnEvenAndOnOddEventDispatcher()
@@ -9,28 +9,34 @@ public class MoreEventTests
     OnEvenNumber = PrintEven;
     OnOddNumber = PrintOdd;
 
-    for(int i = Start; i <= End; i++)
+    for (int i = Start; i <= End; i++)
     {
-      switch(i % 2)
+      switch (i % 2)
       {
         case 0:
           EventDispatcher(i, OnEvenNumber);
-        break;
+          break;
 
         default:
           EventDispatcher(i, OnOddNumber);
-        break;
+          break;
       }
     }
   }
 
-  // Event dispatcher
-  private void EventDispatcher(int num)
+  [TestMethod]
+  public void TestOnMaximumReachedEventDispatcher()
   {
-    Action<int>? handler = OnEvenNumber;
-
-    handler?.Invoke(num);
+    OnMaximum = PrintMaximum;
+    for (int i = Start; i <= End; ++i)
+    {
+      if (i == End)
+        EventDispatcher(i, PrintMaximum);
+      else Console.WriteLine(i);
+    }
   }
+
+  // Event dispatchers
   private static void EventDispatcher(int num, Action<int> action)
   {
     Action<int>? handler = action;
@@ -46,9 +52,14 @@ public class MoreEventTests
   {
     Console.WriteLine($"{num} is odd.");
   }
+  private void PrintMaximum(int num)
+  {
+    Console.WriteLine($"Maximum of {num} reached.");
+  }
 
   private Action<int>? OnEvenNumber;
   private Action<int>? OnOddNumber;
+  private Action<int>? OnMaximum;
 
   private const int Start = 1;
   private const int End = 100;
