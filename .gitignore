@@ -7,4 +7,6 @@ tech/source/Test/TestResults/
 tech/source/Test/Concepts/NUnitTestItem1.cs
 tech/source/Applications/Applications.Common/obj/
 tech/source/Applications/obj/
-/.vscode/
+tech/source/Console/bin/
+tech/source/Console/obj/
+.vscode/
