@@ -2,11 +2,31 @@ namespace Common.Events;
 
 public class Counter
 {
-  public event EventHandler ThresholdReached;
+  private int threshold;
+  private int total;
 
-  protected virtual void OnThresholdReached(EventArgs e)
+  public Counter(int passedThreshold)
   {
-    ThresholdReached?.Invoke(this, e);
+    threshold = passedThreshold;
   }
-
+  public event EventHandler<ThresholdReachedEventArgs> ThresholdReached;
+  public void Add(int x)
+  {
+    total += x;
+    if (total >= threshold)
+    {
+      ThresholdReachedEventArgs args = new ThresholdReachedEventArgs();
+      args.Threshold = threshold;
+      args.TimeReached = DateTime.Now;
+      OnThresholdReached(args);
+    }
+  }
+  protected virtual void OnThresholdReached(ThresholdReachedEventArgs e)
+  {
+    EventHandler<ThresholdReachedEventArgs> handler = ThresholdReached;
+    if(handler != null)
+    {
+      handler(this, e);
+    }
+  }
 }
