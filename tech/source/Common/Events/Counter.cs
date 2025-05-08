@@ -9,7 +9,8 @@ public class Counter
   {
     threshold = passedThreshold;
   }
-  public event EventHandler<ThresholdReachedEventArgs> ThresholdReached;
+
+  public event EventHandler<ThresholdReachedEventArgs>? ThresholdReached;
   public void Add(int x)
   {
     total += x;
@@ -23,10 +24,10 @@ public class Counter
   }
   protected virtual void OnThresholdReached(ThresholdReachedEventArgs e)
   {
-    EventHandler<ThresholdReachedEventArgs> handler = ThresholdReached;
+    EventHandler<ThresholdReachedEventArgs>? handler = ThresholdReached;
     if(handler != null)
     {
-      handler(this, e);
+      handler?.Invoke(this, e);
     }
   }
 }
