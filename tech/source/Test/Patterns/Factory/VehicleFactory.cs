@@ -4,11 +4,11 @@ namespace Test;
 
 public class VehicleFactory
 {
-  public IVehicle CreateCar(int weight, int length)
+  public static Car CreateCar(int weight, int length)
   {
     return new Car(weight, length);
   }
-  public IVehicle CreateTruck(int weight, int length)
+  public static Truck CreateTruck(int weight, int length)
   {
     return new Truck(weight, length);
   }
